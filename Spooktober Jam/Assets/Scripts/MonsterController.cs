@@ -6,6 +6,8 @@ using UnityEditor;
 
 public class MonsterController : MonoBehaviour
 {
+    public GameManager gameManager;
+
     private NavMeshAgent agent;
 
     private GameObject player;
@@ -25,7 +27,7 @@ public class MonsterController : MonoBehaviour
 
     public Transform playerTransform;
 
-    public float detectAngle = 90;
+    public float detectAngle = 400;
     public float changeDestinationDistance = 5f;
 
     float damage = 10f;
@@ -34,6 +36,11 @@ public class MonsterController : MonoBehaviour
 
     private void OnTriggerEnter(Collider collider)
     {
+        if (collider.gameObject.GetComponent<GameManager>() == null) return;
+        if (collider.gameObject.tag == "Player")
+        {
+            gameManager.GameOver();
+        }
 
     }
 
@@ -54,7 +61,10 @@ public class MonsterController : MonoBehaviour
         SetNextDestination();
         agent.speed = wanderSpeed;
         anim = GetComponentInChildren<Animator>();
+
+        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
     }
+
 
     private void Update()
     {
@@ -68,10 +78,10 @@ public class MonsterController : MonoBehaviour
 
         var hasHit = Physics.Raycast(pos, playerDirection, out var hit);
 
-       // if (hasHit)
-       //     Debug.Log(hit.collider.gameObject);
+        if (hasHit)
+        Debug.Log(hit.collider.gameObject);
 
-        if (distanceToTarget < smellSense && angle < (detectAngle / 2) && hasHit &&
+        if (distanceToTarget < smellSense && angle < (detectAngle) && hasHit &&
             hit.collider.gameObject.CompareTag("Player"))
         {
             agent.destination = playerPos;
@@ -81,7 +91,7 @@ public class MonsterController : MonoBehaviour
         else
         {
             isSeeking = false;
- //           _isAlerted = true;
+            // _isAlerted = true;
             //_agent.speed = wanderSpeed;
 
             if (distanceToDestination < changeDestinationDistance && !isSeeking)
@@ -91,7 +101,7 @@ public class MonsterController : MonoBehaviour
 
         }
 
-        if (distanceToTarget < smellSense && angle < (detectAngle / 2) &&
+        if (distanceToTarget < smellSense && angle < (detectAngle) &&
             hasHit && hit.collider.gameObject.CompareTag("Player"))
         {
             //this.transform.rotation = Quaternion.Slerp(this.transform.rotation, Quaternion.LookRotation(direction), 0.1f);
@@ -144,8 +154,8 @@ public class MonsterController : MonoBehaviour
         var pos = transform.position;
         Handles.DrawSolidDisc(pos, Vector3.up, smellSense);
         Gizmos.DrawSphere(pos, smellSense);
-        Handles.DrawSolidArc(pos, Vector3.up, transform.forward, detectAngle / 2, smellSense);
-        Handles.DrawSolidArc(pos, Vector3.up, transform.forward, -detectAngle / 2, smellSense);
+        Handles.DrawSolidArc(pos, Vector3.up, transform.forward, detectAngle, smellSense);
+        Handles.DrawSolidArc(pos, Vector3.up, transform.forward, -detectAngle, smellSense);
 
         if (player == null) return;
         Gizmos.color = Color.magenta;
