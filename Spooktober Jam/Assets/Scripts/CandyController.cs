@@ -6,8 +6,6 @@ using UnityEditor;
 
 public class CandyController : MonoBehaviour
 {
-    public GameManager gameManager;
-
     private NavMeshAgent agent;
 
     private GameObject player;
@@ -38,7 +36,7 @@ public class CandyController : MonoBehaviour
     {
         if (collider.gameObject.tag == "Player")
         {
-            gameManager.GameOver();
+            GameManager.instanceManager.GameOver();
         }
     }
 
@@ -59,8 +57,6 @@ public class CandyController : MonoBehaviour
         SetNextDestination();
         agent.speed = wanderSpeed;
         anim = GetComponentInChildren<Animator>();
-
-        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
     }
 
 

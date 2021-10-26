@@ -8,11 +8,15 @@ public class GameManager : MonoBehaviour
 {
     public int candyLeft = 100;
     public Text candyText;
-    
+
+    public float timer;
+
+    public static GameManager instanceManager;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        instanceManager = this;
     }
 
     // Update is called once per frame
@@ -24,6 +28,8 @@ public class GameManager : MonoBehaviour
         {
             Win();
         }
+
+        timer += Time.deltaTime;
     }
 
     public void Win()

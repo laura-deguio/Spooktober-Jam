@@ -15,7 +15,7 @@ public class PickUpCandy : MonoBehaviour
     {
         if (collider.gameObject.tag == "Player")
         {
-            gameManager.candyLeft -= 1;
+            GameManager.instanceManager.candyLeft -= 1;
             Destroy(gameObject, 0.1f);
         }
     }
