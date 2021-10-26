@@ -38,6 +38,11 @@ public class CandyController : MonoBehaviour
         {
             GameManager.instanceManager.GameOver();
         }
+
+        if(collider.gameObject.tag == "Staff")
+        {
+            Death();
+        }
     }
 
     private void SetNextDestination()
@@ -109,6 +114,11 @@ public class CandyController : MonoBehaviour
         }
     }
  
+    public void Death()
+    {
+        Destroy(this, 0.5f);
+    }
+
     private void OnDrawGizmos()
     {
         if (isSeeking)

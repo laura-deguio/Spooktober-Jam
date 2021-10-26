@@ -15,10 +15,16 @@ public class PlayerController : MonoBehaviour
     private bool isRunning;
     private float isWalking;
 
+    public Collider staffCollider;
+
+    public bool isAttacking;
+
     private void Start()
     {
         controller = GetComponent<CharacterController>();
         animator = GetComponent<Animator>();
+
+        staffCollider.enabled = false;
 
     }
 
@@ -36,8 +42,9 @@ public class PlayerController : MonoBehaviour
 
         controller.SimpleMove(forward * curSpeed);
 
-        //isRunning = Input.GetKeyDown("Fire3");
-        if (Input.GetButton("Fire3"))
+        animator.SetBool("isRunning", isRunning);
+
+        if (Input.GetButtonDown("Fire3"))
         {
             StaminaBar.instanceStamina.UseStamina(0.1f);
             animator.SetBool("isRunning", true);
@@ -49,7 +56,28 @@ public class PlayerController : MonoBehaviour
             speed = 2;
         }
 
-        animator.SetBool("isRunning", isRunning);
+        if (isAttacking == false)
+        {
+            if (Input.GetButton("Fire2"))
+            {
+                StartCoroutine(Attack());
+                Debug.Log("Attacking");
+            }
+        }
+
     }
 
+    private IEnumerator Attack()
+    {
+        isAttacking = true;
+        animator.SetBool("isAttacking", true);
+        staffCollider.enabled = true;
+
+
+        yield return new WaitForSeconds(1);
+
+        animator.SetBool("isAttacking", false);
+        staffCollider.enabled = false;
+        isAttacking = false;
+    }
 }
