@@ -11,9 +11,12 @@ public class PickUpCandy : MonoBehaviour
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter(Collider collider)
     {
-        gameManager.candyLeft -= 1;
-        Destroy(gameObject, 0.1f);
+        if (collider.gameObject.tag == "Player")
+        {
+            gameManager.candyLeft -= 1;
+            Destroy(gameObject, 0.1f);
+        }
     }
 }

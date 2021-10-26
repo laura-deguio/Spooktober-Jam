@@ -36,9 +36,10 @@ public class PlayerController : MonoBehaviour
 
         controller.SimpleMove(forward * curSpeed);
 
-        isRunning = Input.GetButton("Fire3");
+        //isRunning = Input.GetKeyDown("Fire3");
         if (Input.GetButton("Fire3"))
         {
+            StaminaBar.instanceStamina.UseStamina(0.1f);
             animator.SetBool("isRunning", true);
             speed = runningSpeed;
         }

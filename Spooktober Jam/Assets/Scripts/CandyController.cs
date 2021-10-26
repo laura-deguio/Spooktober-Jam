@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.AI;
 using UnityEditor;
 
-public class MonsterController : MonoBehaviour
+public class CandyController : MonoBehaviour
 {
     public GameManager gameManager;
 
@@ -14,7 +14,7 @@ public class MonsterController : MonoBehaviour
 
     private GameObject destination;
 
-    public float smellSense = 5;
+    public float smellSense = 20;
 
     private GameObject[] destinations;
 
@@ -24,24 +24,22 @@ public class MonsterController : MonoBehaviour
 
     public float wanderSpeed = 1.5f;
     public float chaseSpeed = 4f;
+    public float rampageSpeed = 6f;
 
     public Transform playerTransform;
 
-    public float detectAngle = 400;
-    public float changeDestinationDistance = 5f;
+    public float detectAngle = 90;
+    public float changeDestinationDistance = 2f;
 
-    float damage = 10f;
 
     private Vector3 lastPlayerSpottedPosition;
 
     private void OnTriggerEnter(Collider collider)
     {
-        if (collider.gameObject.GetComponent<GameManager>() == null) return;
         if (collider.gameObject.tag == "Player")
         {
             gameManager.GameOver();
         }
-
     }
 
     private void SetNextDestination()
@@ -81,18 +79,23 @@ public class MonsterController : MonoBehaviour
         if (hasHit)
         Debug.Log(hit.collider.gameObject);
 
-        if (distanceToTarget < smellSense && angle < (detectAngle) && hasHit &&
-            hit.collider.gameObject.CompareTag("Player"))
+        if (distanceToTarget < smellSense && angle < (detectAngle / 2) && hasHit && hit.collider.gameObject.CompareTag("Player"))
         {
             agent.destination = playerPos;
             lastPlayerSpottedPosition = playerPos;
             isSeeking = true;
+
+            agent.speed = chaseSpeed;
+            anim.SetBool("isSeeking", false);
+            anim.SetBool("isRunning", true);
         }
         else
         {
             isSeeking = false;
-            // _isAlerted = true;
-            //_agent.speed = wanderSpeed;
+
+            agent.speed = wanderSpeed;
+            anim.SetBool("isSeeking", true);
+            anim.SetBool("isRunning", false);
 
             if (distanceToDestination < changeDestinationDistance && !isSeeking)
             {
@@ -101,43 +104,15 @@ public class MonsterController : MonoBehaviour
 
         }
 
-        if (distanceToTarget < smellSense && angle < (detectAngle) &&
-            hasHit && hit.collider.gameObject.CompareTag("Player"))
+        if (distanceToTarget < 6)
         {
-            //this.transform.rotation = Quaternion.Slerp(this.transform.rotation, Quaternion.LookRotation(direction), 0.1f);
-            //this.transform.Translate(0, 0, 0.5f);
-            agent.speed = chaseSpeed;
-            anim.SetBool("isSeeking", false);
-            anim.SetBool("isRunning", true);
-            anim.SetBool("isAttacking", false);
-        }
-        else
-        {
-            agent.speed = wanderSpeed;
-            anim.SetBool("isSeeking", true);
-            anim.SetBool("isRunning", false);
-            anim.SetBool("isAttacking", false);
-        }
-
-        if (distanceToTarget < 2)
-        {
-            agent.speed = chaseSpeed;
+            agent.speed = rampageSpeed;
             anim.SetBool("isSeeking", false);
             anim.SetBool("isRunning", false);
-            anim.SetBool("isAttacking", true);
+
         }
     }
-
-    public void ReachGhost(Transform target)
-    {
-        var targetPos = target.position;
-        //_anim.SetBool("isRunning", true);
-        //_agent.speed = chaseSpeed;
-        lastPlayerSpottedPosition = targetPos;
-        agent.destination = targetPos;
-    }
-
-    
+ 
     private void OnDrawGizmos()
     {
         if (isSeeking)
@@ -154,8 +129,8 @@ public class MonsterController : MonoBehaviour
         var pos = transform.position;
         Handles.DrawSolidDisc(pos, Vector3.up, smellSense);
         Gizmos.DrawSphere(pos, smellSense);
-        Handles.DrawSolidArc(pos, Vector3.up, transform.forward, detectAngle, smellSense);
-        Handles.DrawSolidArc(pos, Vector3.up, transform.forward, -detectAngle, smellSense);
+        Handles.DrawSolidArc(pos, Vector3.up, transform.forward, detectAngle / 2, smellSense);
+        Handles.DrawSolidArc(pos, Vector3.up, transform.forward, -detectAngle / 2, smellSense);
 
         if (player == null) return;
         Gizmos.color = Color.magenta;
