@@ -12,7 +12,7 @@ public class PlayerController : MonoBehaviour
     public float runningSpeed = 5f;
     public float rotationSpeed = 3f;
 
-    private bool isRunning;
+    public bool isRunning;
     private float isWalking;
 
     public Collider staffCollider;
@@ -44,7 +44,7 @@ public class PlayerController : MonoBehaviour
 
         animator.SetBool("isRunning", isRunning);
 
-        if (Input.GetButtonDown("Fire3"))
+        if (Input.GetButton("Fire3") && StaminaBar.instanceStamina.currentStamina >= 1)
         {
             StaminaBar.instanceStamina.UseStamina(0.1f);
             animator.SetBool("isRunning", true);
@@ -56,9 +56,11 @@ public class PlayerController : MonoBehaviour
             speed = 2;
         }
 
+        animator.SetBool("isAttacking", isAttacking);
+
         if (isAttacking == false)
         {
-            if (Input.GetButton("Fire2"))
+            if (Input.GetButton("Fire1"))
             {
                 StartCoroutine(Attack());
                 Debug.Log("Attacking");
