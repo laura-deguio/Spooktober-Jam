@@ -19,6 +19,8 @@ public class PlayerController : MonoBehaviour
 
     public bool isAttacking;
 
+    private Coroutine attack;
+
     private void Start()
     {
         controller = GetComponent<CharacterController>();
@@ -53,33 +55,37 @@ public class PlayerController : MonoBehaviour
         else
         {
             animator.SetBool("isRunning", false);
-            speed = 2;
+            speed = 6;
         }
 
         animator.SetBool("isAttacking", isAttacking);
 
         if (isAttacking == false)
         {
-            if (Input.GetButton("Fire1"))
+            if (Input.GetButtonDown("Fire1"))
             {
+                isAttacking = true;
                 StartCoroutine(Attack());
                 Debug.Log("Attacking");
             }
         }
 
     }
-
     private IEnumerator Attack()
     {
-        isAttacking = true;
-        animator.SetBool("isAttacking", true);
-        staffCollider.enabled = true;
+        while (isAttacking == true)
+        {
+            animator.SetBool("isAttacking", true);
+            staffCollider.enabled = true;
+            isAttacking = false;
 
-
-        yield return new WaitForSeconds(1);
+            yield return new WaitForSeconds(0.9f);
+        }
 
         animator.SetBool("isAttacking", false);
         staffCollider.enabled = false;
-        isAttacking = false;
+
+        attack = null;
+
     }
 }

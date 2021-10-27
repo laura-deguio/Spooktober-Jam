@@ -6,6 +6,8 @@ using UnityEditor;
 
 public class CandyController : MonoBehaviour
 {
+    public static CandyController istanceCandy;
+
     private NavMeshAgent agent;
 
     private GameObject player;
@@ -31,6 +33,11 @@ public class CandyController : MonoBehaviour
 
 
     private Vector3 lastPlayerSpottedPosition;
+
+    private void Awake()
+    {
+        istanceCandy = this;
+    }
 
     private void OnTriggerEnter(Collider collider)
     {
@@ -77,8 +84,8 @@ public class CandyController : MonoBehaviour
 
         var hasHit = Physics.Raycast(pos, playerDirection, out var hit);
 
-        if (hasHit)
-        Debug.Log(hit.collider.gameObject);
+        //if (hasHit)
+        //Debug.Log(hit.collider.gameObject);
 
         if (distanceToTarget < smellSense && angle < (detectAngle / 2) && hasHit && hit.collider.gameObject.CompareTag("Player"))
         {
@@ -105,7 +112,7 @@ public class CandyController : MonoBehaviour
 
         }
 
-        if (distanceToTarget < 6)
+        if (distanceToTarget < smellSense && distanceToTarget < 6 && angle < (detectAngle / 2) && hasHit && hit.collider.gameObject.CompareTag("Player"))
         {
             agent.speed = rampageSpeed;
             anim.SetBool("isSeeking", false);
@@ -116,7 +123,7 @@ public class CandyController : MonoBehaviour
  
     public void Death()
     {
-        Destroy(this, 0.5f);
+        Destroy(gameObject, 1);
     }
 
     private void OnDrawGizmos()

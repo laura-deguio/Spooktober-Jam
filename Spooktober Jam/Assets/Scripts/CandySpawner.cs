@@ -22,7 +22,7 @@ public class CandySpawner : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetButtonUp("Fire1"))
+        if (GameManager.instanceManager.timer == 10)
         {
             Spawner();
         }
