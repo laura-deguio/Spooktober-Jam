@@ -9,7 +9,8 @@ public class GameManager : MonoBehaviour
     public int candyLeft = 100;
     public Text candyText;
 
-    public float timer;
+    public float timer = 0.0f;
+    public int seconds;
 
     public static GameManager instanceManager;
 
@@ -24,12 +25,13 @@ public class GameManager : MonoBehaviour
     {
         candyText.text = candyLeft.ToString();
 
-        if(candyLeft <= 0)
+        if (candyLeft <= 0)
         {
             Win();
         }
 
         timer += Time.deltaTime;
+        seconds = (int)(timer % 60);
     }
 
     public void Win()
@@ -43,4 +45,15 @@ public class GameManager : MonoBehaviour
         //Lose condition
         Debug.Log("Lost");
     }
+
+    public void Play()
+    {
+        SceneManager.LoadScene(1);
+    }
+
+    public void Menu()
+    {
+        SceneManager.LoadScene(0);
+    }
+
 }

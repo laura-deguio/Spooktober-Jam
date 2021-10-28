@@ -126,6 +126,7 @@ public class CandyController : MonoBehaviour
         Destroy(gameObject, 1);
     }
 
+    /*
     private void OnDrawGizmos()
     {
         if (isSeeking)
@@ -149,5 +150,5 @@ public class CandyController : MonoBehaviour
         Gizmos.color = Color.magenta;
         Gizmos.DrawLine(transform.position, player.transform.position);
     }
-    
+    */
 }

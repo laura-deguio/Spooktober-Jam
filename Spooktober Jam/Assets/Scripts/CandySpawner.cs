@@ -16,16 +16,7 @@ public class CandySpawner : MonoBehaviour
 
     void Start()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        if (GameManager.instanceManager.timer == 10)
-        {
-            Spawner();
-        }
+        InvokeRepeating("Spawner", 20f, 10f);
     }
 
     public void Spawner()
