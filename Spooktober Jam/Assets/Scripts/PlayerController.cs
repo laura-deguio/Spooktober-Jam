@@ -41,7 +41,6 @@ public class PlayerController : MonoBehaviour
 
         animator.SetFloat("isWalking", isWalking);
 
-
         controller.SimpleMove(forward * curSpeed);
 
         animator.SetBool("isRunning", isRunning);
@@ -79,7 +78,7 @@ public class PlayerController : MonoBehaviour
             staffCollider.enabled = true;
             isAttacking = false;
 
-            yield return new WaitForSeconds(0.9f);
+            yield return new WaitForSeconds(2f);
         }
 
         animator.SetBool("isAttacking", false);

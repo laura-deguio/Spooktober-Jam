@@ -16,7 +16,7 @@ public class CandySpawner : MonoBehaviour
 
     void Start()
     {
-        InvokeRepeating("Spawner", 20f, 10f);
+        InvokeRepeating("Spawner", 40, 20);
     }
 
     public void Spawner()

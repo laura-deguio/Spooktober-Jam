@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class GameManager : MonoBehaviour
 {
     public int candyLeft = 100;
-    public Text candyText;
+    public TMP_Text candyText;
 
     public float timer = 0.0f;
     public int seconds;
@@ -37,13 +38,13 @@ public class GameManager : MonoBehaviour
     public void Win()
     {
         //Win condition
-        Debug.Log("Win");
+        SceneManager.LoadScene(3);
     }
 
     public void GameOver()
     {
         //Lose condition
-        Debug.Log("Lost");
+        SceneManager.LoadScene(2);
     }
 
     public void Play()

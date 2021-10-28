@@ -11,11 +11,10 @@ GameObject:
   - component: {fileID: 16144731114859962}
   - component: {fileID: 4851384877161366365}
   - component: {fileID: 6713990789991538453}
-  - component: {fileID: 4727166867592350589}
   - component: {fileID: 5393125295308557464}
   - component: {fileID: 4005529765151203871}
   - component: {fileID: 1185140839832590037}
-  - component: {fileID: 5424164806425855489}
+  - component: {fileID: 2960751030908674025}
   m_Layer: 0
   m_Name: InvincibleCandy
   m_TagString: InvincibleCandy
@@ -73,32 +72,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   smellSense: 50
-  anim: {fileID: 0}
+  isSeeking: 0
   wanderSpeed: 6
   chaseSpeed: 8
-  rampageSpeed: 12
-  playerTransform: {fileID: 0}
+  rampageSpeed: 15
   detectAngle: 70
   changeDestinationDistance: 2
---- !u!95 &4727166867592350589
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 824874654432245504}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!65 &5393125295308557464
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -163,7 +142,7 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!82 &5424164806425855489
+--- !u!82 &2960751030908674025
 AudioSource:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -175,18 +154,18 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 05ee8b5218571374c9ba9271a9d603c9, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.5
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
   Priority: 128
   DopplerLevel: 1
-  MinDistance: 1
+  MinDistance: 6
   MaxDistance: 12
   Pan2D: 0
-  rolloffMode: 2
+  rolloffMode: 1
   BypassEffects: 0
   BypassListenerEffects: 0
   BypassReverbZones: 0
@@ -194,22 +173,22 @@ AudioSource:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
-      time: 0.05
+      time: 0.6
       value: 1
-      inSlope: -0.13665032
-      outSlope: -0.13665032
+      inSlope: 0
+      outSlope: 0
       tangentMode: 0
       weightedMode: 0
       inWeight: 0
-      outWeight: 0.11092473
+      outWeight: 0
     - serializedVersion: 3
       time: 1
       value: 0
-      inSlope: -0.090617426
-      outSlope: -0.090617426
+      inSlope: 0.03979819
+      outSlope: 0.03979819
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0.13629694
+      inWeight: 0.184263
       outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
@@ -219,7 +198,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0

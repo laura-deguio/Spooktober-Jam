@@ -18,26 +18,17 @@ public class CandyController : MonoBehaviour
 
     private GameObject[] destinations;
 
-    private bool isSeeking;
-
-    public Animator anim;
+    public bool isSeeking;
 
     public float wanderSpeed = 1.5f;
     public float chaseSpeed = 4f;
     public float rampageSpeed = 6f;
-
-    public Transform playerTransform;
 
     public float detectAngle = 90;
     public float changeDestinationDistance = 2f;
 
 
     private Vector3 lastPlayerSpottedPosition;
-
-    private void Awake()
-    {
-        istanceCandy = this;
-    }
 
     private void OnTriggerEnter(Collider collider)
     {
@@ -46,7 +37,7 @@ public class CandyController : MonoBehaviour
             GameManager.instanceManager.GameOver();
         }
 
-        if(collider.gameObject.tag == "Staff")
+        if(this.tag == "Candy" && collider.gameObject.tag == "Staff")
         {
             Death();
         }
@@ -62,13 +53,16 @@ public class CandyController : MonoBehaviour
     private void Start()
     {
         agent = GetComponent<NavMeshAgent>();
+
         GetComponent<NavMeshAgent>().speed = wanderSpeed;
         GetComponent<NavMeshAgent>().speed = chaseSpeed;
+        GetComponent<NavMeshAgent>().speed = rampageSpeed;
+
         player = GameObject.FindGameObjectWithTag("Player");
         destinations = GameObject.FindGameObjectsWithTag("Destination");
+
         SetNextDestination();
         agent.speed = wanderSpeed;
-        anim = GetComponentInChildren<Animator>();
     }
 
 
@@ -84,49 +78,49 @@ public class CandyController : MonoBehaviour
 
         var hasHit = Physics.Raycast(pos, playerDirection, out var hit);
 
-        //if (hasHit)
-        //Debug.Log(hit.collider.gameObject);
+        if (hasHit)
+        Debug.Log(hit.collider.gameObject.tag);
 
-        if (distanceToTarget < smellSense && angle < (detectAngle / 2) && hasHit && hit.collider.gameObject.CompareTag("Player"))
+        if (distanceToTarget < smellSense && angle < (detectAngle / 2) &&
+            hasHit && hit.collider.gameObject.CompareTag("Player"))
         {
+            isSeeking = true;
             agent.destination = playerPos;
             lastPlayerSpottedPosition = playerPos;
-            isSeeking = true;
 
             agent.speed = chaseSpeed;
-            anim.SetBool("isSeeking", false);
-            anim.SetBool("isRunning", true);
         }
         else
         {
             isSeeking = false;
 
             agent.speed = wanderSpeed;
-            anim.SetBool("isSeeking", true);
-            anim.SetBool("isRunning", false);
 
             if (distanceToDestination < changeDestinationDistance && !isSeeking)
+            {
+                SetNextDestination();
+            }
+            else if (distanceToSupposedTarget < changeDestinationDistance && !isSeeking)
             {
                 SetNextDestination();
             }
 
         }
 
-        if (distanceToTarget < smellSense && distanceToTarget < 6 && angle < (detectAngle / 2) && hasHit && hit.collider.gameObject.CompareTag("Player"))
+        if (distanceToTarget < smellSense && distanceToTarget < 8 && angle < (detectAngle / 2) && hasHit && hit.collider.gameObject.CompareTag("Player"))
         {
+            isSeeking = true;
             agent.speed = rampageSpeed;
-            anim.SetBool("isSeeking", false);
-            anim.SetBool("isRunning", false);
-
         }
+
     }
  
     public void Death()
     {
-        Destroy(gameObject, 1);
+        Destroy(gameObject);
     }
 
-    /*
+    
     private void OnDrawGizmos()
     {
         if (isSeeking)
@@ -150,5 +144,5 @@ public class CandyController : MonoBehaviour
         Gizmos.color = Color.magenta;
         Gizmos.DrawLine(transform.position, player.transform.position);
     }
-    */
+    
 }
