@@ -155,11 +155,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   smellSense: 50
   isSeeking: 0
-  wanderSpeed: 6
-  chaseSpeed: 8
+  wanderSpeed: 7
+  chaseSpeed: 10
   rampageSpeed: 15
   detectAngle: 70
-  changeDestinationDistance: 2
+  changeDestinationDistance: 10
 --- !u!65 &8561336275550246064
 BoxCollider:
   m_ObjectHideFlags: 0

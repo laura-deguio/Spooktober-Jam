@@ -1329,7 +1329,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &514983847
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3073,8 +3073,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   candyLeft: 100
   candyText: {fileID: 1937105001}
-  timer: 0
-  seconds: 0
 --- !u!4 &1343491231
 Transform:
   m_ObjectHideFlags: 0

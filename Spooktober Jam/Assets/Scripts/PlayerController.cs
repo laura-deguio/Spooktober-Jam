@@ -8,12 +8,14 @@ public class PlayerController : MonoBehaviour
 
     static Animator animator;
 
-    public float speed = 3f;
-    public float runningSpeed = 5f;
-    public float rotationSpeed = 3f;
-
+    
+    //public float speed = 3f;
+    
+    //public float runningSpeed = 5f;
+    //public float rotationSpeed = 3f;
+    
     public bool isRunning;
-    private float isWalking;
+    //private float isWalking;
 
     public Collider staffCollider;
 
@@ -23,15 +25,15 @@ public class PlayerController : MonoBehaviour
 
     private void Start()
     {
-        controller = GetComponent<CharacterController>();
+        //controller = GetComponent<CharacterController>();
         animator = GetComponent<Animator>();
 
         staffCollider.enabled = false;
-
     }
 
     private void Update()
     {
+        /*
         transform.Rotate(0, Input.GetAxis("Horizontal") * rotationSpeed, 0);
         Vector3 forward = transform.TransformDirection(Vector3.forward);
         float curSpeed = speed * Input.GetAxis("Vertical");
@@ -42,19 +44,20 @@ public class PlayerController : MonoBehaviour
         animator.SetFloat("isWalking", isWalking);
 
         controller.SimpleMove(forward * curSpeed);
-
+        */
         animator.SetBool("isRunning", isRunning);
+        
 
-        if (Input.GetButton("Fire3") && StaminaBar.instanceStamina.currentStamina >= 1)
+        if (Input.GetButton("Fire3"))
         {
-            StaminaBar.instanceStamina.UseStamina(0.1f);
+            //StaminaBar.instanceStamina.UseStamina(0.1f);
             animator.SetBool("isRunning", true);
-            speed = runningSpeed;
+            //speed = runningSpeed;
         }
         else
         {
             animator.SetBool("isRunning", false);
-            speed = 6;
+            //speed = 5;
         }
 
         animator.SetBool("isAttacking", isAttacking);

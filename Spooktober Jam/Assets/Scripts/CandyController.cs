@@ -68,6 +68,7 @@ public class CandyController : MonoBehaviour
 
     private void Update()
     {
+        
         var pos = transform.position;
         var playerPos = player.transform.position;
         var distanceToTarget = Vector3.Distance(pos, playerPos);
@@ -78,11 +79,10 @@ public class CandyController : MonoBehaviour
 
         var hasHit = Physics.Raycast(pos, playerDirection, out var hit);
 
-        if (hasHit)
-        Debug.Log(hit.collider.gameObject.tag);
+        //if (hasHit)
+        //Debug.Log(hit.collider.gameObject.tag);
 
-        if (distanceToTarget < smellSense && angle < (detectAngle / 2) &&
-            hasHit && hit.collider.gameObject.CompareTag("Player"))
+        if (distanceToTarget < smellSense && angle < (detectAngle / 2) && hasHit && hit.collider.gameObject.CompareTag("Player"))
         {
             isSeeking = true;
             agent.destination = playerPos;
@@ -96,31 +96,33 @@ public class CandyController : MonoBehaviour
 
             agent.speed = wanderSpeed;
 
-            if (distanceToDestination < changeDestinationDistance && !isSeeking)
+            if (distanceToDestination < changeDestinationDistance)
             {
                 SetNextDestination();
             }
-            else if (distanceToSupposedTarget < changeDestinationDistance && !isSeeking)
+            else if (distanceToSupposedTarget < changeDestinationDistance)
             {
                 SetNextDestination();
             }
-
         }
 
-        if (distanceToTarget < smellSense && distanceToTarget < 8 && angle < (detectAngle / 2) && hasHit && hit.collider.gameObject.CompareTag("Player"))
+        if (distanceToTarget < smellSense && distanceToTarget < 10 && angle < (detectAngle / 2) && hasHit && hit.collider.gameObject.CompareTag("Player"))
         {
             isSeeking = true;
             agent.speed = rampageSpeed;
         }
 
     }
- 
+
+
     public void Death()
     {
-        Destroy(gameObject);
+        Destroy(gameObject.GetComponent<BoxCollider>());
+        Destroy(gameObject.GetComponent<CandyController>());
+        Destroy(gameObject, 1f);
     }
 
-    
+    /*
     private void OnDrawGizmos()
     {
         if (isSeeking)
@@ -144,5 +146,5 @@ public class CandyController : MonoBehaviour
         Gizmos.color = Color.magenta;
         Gizmos.DrawLine(transform.position, player.transform.position);
     }
-    
+    */
 }

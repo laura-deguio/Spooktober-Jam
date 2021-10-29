@@ -77,7 +77,7 @@ MonoBehaviour:
   chaseSpeed: 8
   rampageSpeed: 15
   detectAngle: 70
-  changeDestinationDistance: 2
+  changeDestinationDistance: 10
 --- !u!65 &5393125295308557464
 BoxCollider:
   m_ObjectHideFlags: 0

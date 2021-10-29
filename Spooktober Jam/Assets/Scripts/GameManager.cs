@@ -10,9 +10,6 @@ public class GameManager : MonoBehaviour
     public int candyLeft = 100;
     public TMP_Text candyText;
 
-    public float timer = 0.0f;
-    public int seconds;
-
     public static GameManager instanceManager;
 
     // Start is called before the first frame update
@@ -30,9 +27,6 @@ public class GameManager : MonoBehaviour
         {
             Win();
         }
-
-        timer += Time.deltaTime;
-        seconds = (int)(timer % 60);
     }
 
     public void Win()
