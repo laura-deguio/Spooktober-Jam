@@ -199,6 +199,7 @@ GameObject:
   m_Component:
   - component: {fileID: 435210366}
   - component: {fileID: 435210365}
+  - component: {fileID: 435210368}
   - component: {fileID: 435210367}
   m_Layer: 0
   m_Name: GameManager
@@ -221,8 +222,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   candyLeft: 100
   candyText: {fileID: 1954026239}
-  timer: 0
-  seconds: 0
 --- !u!4 &435210366
 Transform:
   m_ObjectHideFlags: 0
@@ -251,7 +250,7 @@ AudioSource:
   m_PlayOnAwake: 1
   m_Volume: 0.3
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -333,6 +332,18 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &435210368
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 435210364}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb4dc979f0d0eb41bcf81bf542603e8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &833306976
 GameObject:
   m_ObjectHideFlags: 0

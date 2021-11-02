@@ -38,7 +38,7 @@ public class GameManager : MonoBehaviour
     public void GameOver()
     {
         //Lose condition
-        SceneManager.LoadScene(2);
+        SceneManager.LoadScene(4);
     }
 
     public void Play()
@@ -49,6 +49,12 @@ public class GameManager : MonoBehaviour
     public void Menu()
     {
         SceneManager.LoadScene(0);
+    }
+
+    public void Quit()
+    {
+        Application.Quit();
+
     }
 
 }

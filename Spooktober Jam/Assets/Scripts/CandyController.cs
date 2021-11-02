@@ -85,10 +85,8 @@ public class CandyController : MonoBehaviour
         if (distanceToTarget < smellSense && angle < (detectAngle / 2) && hasHit && hit.collider.gameObject.CompareTag("Player"))
         {
             isSeeking = true;
-            agent.destination = playerPos;
             lastPlayerSpottedPosition = playerPos;
-
-            agent.speed = chaseSpeed;
+            agent.destination = playerPos;
         }
         else
         {
@@ -96,11 +94,12 @@ public class CandyController : MonoBehaviour
 
             agent.speed = wanderSpeed;
 
-            if (distanceToDestination < changeDestinationDistance)
+            if (distanceToSupposedTarget <= 1)
             {
+                Debug.Log("Player lost");
                 SetNextDestination();
             }
-            else if (distanceToSupposedTarget < changeDestinationDistance)
+            else if (distanceToDestination < changeDestinationDistance)
             {
                 SetNextDestination();
             }

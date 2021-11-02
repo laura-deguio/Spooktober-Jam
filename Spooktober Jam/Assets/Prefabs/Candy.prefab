@@ -158,7 +158,7 @@ MonoBehaviour:
   wanderSpeed: 7
   chaseSpeed: 10
   rampageSpeed: 15
-  detectAngle: 70
+  detectAngle: 90
   changeDestinationDistance: 10
 --- !u!65 &8561336275550246064
 BoxCollider:
@@ -193,8 +193,8 @@ AudioSource:
   SpatializePostEffects: 0
   Priority: 128
   DopplerLevel: 1
-  MinDistance: 6
-  MaxDistance: 12
+  MinDistance: 15
+  MaxDistance: 20
   Pan2D: 0
   rolloffMode: 1
   BypassEffects: 0

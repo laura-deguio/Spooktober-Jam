@@ -51,7 +51,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
         public float maxStamina = 100;
         public float currentStamina;
 
-        private WaitForSeconds regentTick = new WaitForSeconds(0.1f);
+        private WaitForSeconds regentTick = new WaitForSeconds(0.08f);
         private Coroutine regen;
 
         public bool isRunning;
@@ -269,7 +269,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
             if(Input.GetButton("Fire3") && currentStamina >= 1)
             {
                 animator.SetBool("isRunning", true);
-                UseStamina(0.4f);
+                UseStamina(0.3f);
                 speed = m_RunSpeed;
             }
             else
@@ -334,7 +334,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
         private IEnumerator RegenStamina()
         {
-            yield return new WaitForSeconds(2);
+            yield return new WaitForSeconds(1);
 
             while (currentStamina < maxStamina)
             {
